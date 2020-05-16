@@ -7,21 +7,21 @@ import (
 	"github.com/shiki-tak/notori/handler"
 )
 
-const OUTPUT_PATH = "./json"
+const outputPath = "./json"
 
 func main() {
-	if err := Run(os.Args[1], os.Args[2]); err != nil {
+	if err := run(os.Args[1], os.Args[2]); err != nil {
 		fmt.Println(err)
 	}
 }
 
-func Run(input, output string) error {
-	json, err := handler.ExcelToJson(input)
+func run(input, output string) error {
+	json, err := handler.ExcelToJSON(input)
 	if err != nil {
 		return err
 	}
 
-	err = OutputToFile(json, output)
+	err = outputToFile(json, output)
 	if err != nil {
 		return err
 	}
@@ -29,8 +29,8 @@ func Run(input, output string) error {
 	return nil
 }
 
-func OutputToFile(input, output string) error {
-	file, err := os.Create(fmt.Sprintf(`%s/%s`, OUTPUT_PATH, output))
+func outputToFile(input, output string) error {
+	file, err := os.Create(fmt.Sprintf(`%s/%s`, outputPath, output))
 	if err != nil {
 		return err
 	}

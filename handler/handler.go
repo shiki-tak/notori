@@ -10,8 +10,9 @@ import (
 	"github.com/tealeg/xlsx"
 )
 
-func ExcelToJson(excelFileName string) (string, error) {
-	exBases, exRoutes, exCosts, err := GenerateExData(excelFileName)
+// ExcelToJSON ecel format transfer to json
+func ExcelToJSON(excelFileName string) (string, error) {
+	exBases, exRoutes, exCosts, err := generateExData(excelFileName)
 	if err != nil {
 		return "", err
 	}
@@ -47,10 +48,10 @@ func ExcelToJson(excelFileName string) (string, error) {
 		plans = append(plans, plan)
 	}
 
-	return Json(plans)
+	return generateJSON(plans)
 }
 
-func GenerateExData(excelFileName string) ([]types.ExBase, []types.ExRoute, []types.ExCost, error) {
+func generateExData(excelFileName string) ([]types.ExBase, []types.ExRoute, []types.ExCost, error) {
 	exBases := []types.ExBase{}
 	exRoutes := []types.ExRoute{}
 	exCosts := []types.ExCost{}
@@ -63,11 +64,11 @@ func GenerateExData(excelFileName string) ([]types.ExBase, []types.ExRoute, []ty
 	for i, sheet := range xlFile.Sheets {
 		switch i {
 		case 0:
-			exBases = GenerateExBase(sheet)
+			exBases = generateExBase(sheet)
 		case 1:
-			exRoutes = GenerateExRoute(sheet)
+			exRoutes = generateExRoute(sheet)
 		case 2:
-			exCosts = GenerateExCost(sheet)
+			exCosts = generateExCost(sheet)
 		default:
 			return exBases, exRoutes, exCosts, errors.New("invalid sheet")
 		}
@@ -76,8 +77,8 @@ func GenerateExData(excelFileName string) ([]types.ExBase, []types.ExRoute, []ty
 	return exBases, exRoutes, exCosts, nil
 }
 
-func GenerateExBase(sheet *xlsx.Sheet) []types.ExBase {
-	data := GetCellData(sheet)
+func generateExBase(sheet *xlsx.Sheet) []types.ExBase {
+	data := getCellData(sheet)
 
 	exBases := make([]types.ExBase, 0)
 
@@ -97,8 +98,8 @@ func GenerateExBase(sheet *xlsx.Sheet) []types.ExBase {
 	return exBases
 }
 
-func GenerateExRoute(sheet *xlsx.Sheet) []types.ExRoute {
-	data := GetCellData(sheet)
+func generateExRoute(sheet *xlsx.Sheet) []types.ExRoute {
+	data := getCellData(sheet)
 
 	exRoutes := make([]types.ExRoute, 0)
 	for _, elm := range data {
@@ -123,8 +124,8 @@ func GenerateExRoute(sheet *xlsx.Sheet) []types.ExRoute {
 	return exRoutes
 }
 
-func GenerateExCost(sheet *xlsx.Sheet) []types.ExCost {
-	data := GetCellData(sheet)
+func generateExCost(sheet *xlsx.Sheet) []types.ExCost {
+	data := getCellData(sheet)
 
 	exCosts := make([]types.ExCost, 0)
 	for _, elm := range data {
@@ -144,7 +145,7 @@ func GenerateExCost(sheet *xlsx.Sheet) []types.ExCost {
 	return exCosts
 }
 
-func GetCellData(sheet *xlsx.Sheet) [][]string {
+func getCellData(sheet *xlsx.Sheet) [][]string {
 	data := make([][]string, 0)
 	for i, row := range sheet.Rows {
 		if i != 0 {
@@ -159,7 +160,7 @@ func GetCellData(sheet *xlsx.Sheet) [][]string {
 	return data
 }
 
-func Json(plans []types.Plan) (string, error) {
+func generateJSON(plans []types.Plan) (string, error) {
 	jsonBytes, err := json.Marshal(plans)
 	if err != nil {
 		return "", err
