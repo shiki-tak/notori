@@ -1,0 +1,70 @@
+[
+	{
+		"base": {
+			"Id": 0,
+			"Title": "sample_title1",
+			"Description": "sample_description1",
+			"Period": 2
+		},
+		"routes": [
+			{
+				"points": [
+					"sp1",
+					"sp2",
+					"sp3"
+				],
+				"course_time": 10
+			},
+			{
+				"points": [
+					"sp4",
+					"sp5"
+				],
+				"course_time": 9
+			}
+		],
+		"costs": [
+			{
+				"usecase": "sample_usecase1",
+				"price": 1000
+			},
+			{
+				"usecase": "sample_usecase2",
+				"price": 2000
+			}
+		]
+	},
+	{
+		"base": {
+			"Id": 1,
+			"Title": "sample_title2",
+			"Description": "sample_description2",
+			"Period": 1
+		},
+		"routes": [
+			{
+				"points": [
+					"sp6",
+					"sp7",
+					"sp8",
+					"sp9"
+				],
+				"course_time": 8
+			}
+		],
+		"costs": [
+			{
+				"usecase": "sample_usecase3",
+				"price": 3000
+			},
+			{
+				"usecase": "sample_usecase4",
+				"price": 4000
+			},
+			{
+				"usecase": "sample_usecase5",
+				"price": 5000
+			}
+		]
+	}
+]
